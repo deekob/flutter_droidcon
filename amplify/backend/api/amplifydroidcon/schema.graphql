@@ -1,0 +1,8 @@
+type UserProfile @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userName: String!
+  email: String
+  imageKey: String
+  description: String
+}
+ 
