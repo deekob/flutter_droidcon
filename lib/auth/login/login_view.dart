@@ -1,9 +1,9 @@
-import 'package:amplify_flutter/auth/auth_cubit.dart';
-import 'package:amplify_flutter/auth/auth_repository.dart';
-import 'package:amplify_flutter/auth/form_submission_status.dart';
-import 'package:amplify_flutter/auth/login/login_event.dart';
-import 'package:amplify_flutter/auth/login/login_state.dart';
-import 'package:amplify_flutter/auth/login/login_bloc.dart';
+import 'package:flutter_droidcon/auth/auth_cubit.dart';
+import 'package:flutter_droidcon/auth/auth_repository.dart';
+import 'package:flutter_droidcon/auth/form_submission_status.dart';
+import 'package:flutter_droidcon/auth/login/login_event.dart';
+import 'package:flutter_droidcon/auth/login/login_state.dart';
+import 'package:flutter_droidcon/auth/login/login_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

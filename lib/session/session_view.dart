@@ -1,4 +1,4 @@
-import 'package:amplify_flutter/session/session_cubit.dart';
+import 'package:flutter_droidcon/session/session_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

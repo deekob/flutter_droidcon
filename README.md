@@ -1,4 +1,4 @@
-# amplify_flutter
+# flutter_droidcon
 
 A new Flutter project.
 

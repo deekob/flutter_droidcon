@@ -1,4 +1,4 @@
-import 'package:amplify_flutter/auth/form_submission_status.dart';
+import 'package:flutter_droidcon/auth/form_submission_status.dart';
 
 class SignUpState {
   final String username;

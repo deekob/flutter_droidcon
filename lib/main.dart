@@ -1,6 +1,6 @@
-import 'package:amplify_flutter/app_navigator.dart';
-import 'package:amplify_flutter/auth/auth_repository.dart';
-import 'package:amplify_flutter/session/session_cubit.dart';
+import 'package:flutter_droidcon/app_navigator.dart';
+import 'package:flutter_droidcon/auth/auth_repository.dart';
+import 'package:flutter_droidcon/session/session_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

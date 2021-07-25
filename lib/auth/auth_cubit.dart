@@ -1,5 +1,5 @@
-import 'package:amplify_flutter/auth/auth_credentials.dart';
-import 'package:amplify_flutter/session/session_cubit.dart';
+import 'package:flutter_droidcon/auth/auth_credentials.dart';
+import 'package:flutter_droidcon/session/session_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 enum AuthState { login, signUp, confirmSignUp }

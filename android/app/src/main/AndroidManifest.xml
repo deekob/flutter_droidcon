@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.amplify_flutter">
+    package="com.example.flutter_droidcon">
    <application
-        android:label="amplify_flutter"
+        android:label="flutter_droidcon"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

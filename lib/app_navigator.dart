@@ -1,9 +1,9 @@
-import 'package:amplify_flutter/auth/auth_cubit.dart';
-import 'package:amplify_flutter/auth/auth_navigator.dart';
-import 'package:amplify_flutter/session/session_cubit.dart';
-import 'package:amplify_flutter/session/session_state.dart';
-import 'package:amplify_flutter/session/session_view.dart';
-import 'package:amplify_flutter/views/loading_view.dart';
+import 'package:flutter_droidcon/auth/auth_cubit.dart';
+import 'package:flutter_droidcon/auth/auth_navigator.dart';
+import 'package:flutter_droidcon/session/session_cubit.dart';
+import 'package:flutter_droidcon/session/session_state.dart';
+import 'package:flutter_droidcon/session/session_view.dart';
+import 'package:flutter_droidcon/views/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,7 +1,7 @@
-import 'package:amplify_flutter/auth/auth_cubit.dart';
-import 'package:amplify_flutter/auth/confirm/confirm_view.dart';
-import 'package:amplify_flutter/auth/login/login_view.dart';
-import 'package:amplify_flutter/auth/signup/signup_view.dart';
+import 'package:flutter_droidcon/auth/auth_cubit.dart';
+import 'package:flutter_droidcon/auth/confirm/confirm_view.dart';
+import 'package:flutter_droidcon/auth/login/login_view.dart';
+import 'package:flutter_droidcon/auth/signup/signup_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

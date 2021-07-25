@@ -1,6 +1,6 @@
 {
-    "name": "amplify_flutter",
-    "short_name": "amplify_flutter",
+    "name": "flutter_droidcon",
+    "short_name": "flutter_droidcon",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

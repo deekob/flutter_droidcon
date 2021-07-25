@@ -1,8 +1,8 @@
-import 'package:amplify_flutter/auth/auth_cubit.dart';
-import 'package:amplify_flutter/auth/auth_repository.dart';
-import 'package:amplify_flutter/auth/form_submission_status.dart';
-import 'package:amplify_flutter/auth/signup/signup_event.dart';
-import 'package:amplify_flutter/auth/signup/signup_state.dart';
+import 'package:flutter_droidcon/auth/auth_cubit.dart';
+import 'package:flutter_droidcon/auth/auth_repository.dart';
+import 'package:flutter_droidcon/auth/form_submission_status.dart';
+import 'package:flutter_droidcon/auth/signup/signup_event.dart';
+import 'package:flutter_droidcon/auth/signup/signup_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
