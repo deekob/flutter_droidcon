@@ -25,7 +25,11 @@ class AppNavigator extends StatelessWidget {
               ),
             ),
           // show session flow
-          if (state is Authenticated) MaterialPage(child: SessionView())
+          if (state is Authenticated)
+            MaterialPage(
+                child: SessionView(
+              userProfile: state.user,
+            ))
         ],
         onPopPage: (route, result) => route.didPop(result),
       );

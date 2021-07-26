@@ -1,20 +1,31 @@
+import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter_droidcon/auth/auth_credentials.dart';
 import 'package:flutter_droidcon/auth/auth_repository.dart';
+import 'package:flutter_droidcon/data_repository.dart';
+import 'package:flutter_droidcon/models/UserProfile.dart';
 import 'package:flutter_droidcon/session/session_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SessionCubit extends Cubit<SessionState> {
   final AuthRepository authRepo;
+  final DataRepository dataRepo;
 
-  SessionCubit({required this.authRepo}) : super(UnknownSessionState()) {
+  SessionCubit({required this.authRepo, required this.dataRepo})
+      : super(UnknownSessionState()) {
     attemptSignIn();
   }
 
   void attemptSignIn() async {
     try {
       final userId = await authRepo.attemptLogin();
-      //   final user = dataRepo.getByUserId();
-      final user = userId;
+      if (userId == null) {
+        throw Exception('User not logged in');
+      }
+      var user = await dataRepo.getUserById(userId);
+      if (user == null) {
+        user = await dataRepo.createProfile(
+            userId: userId, userName: 'User=${UUID()}');
+      }
       emit(Authenticated(user: user));
     } on Exception {
       emit(Unauthenticated());
@@ -23,11 +34,18 @@ class SessionCubit extends Cubit<SessionState> {
 
   void showAuth() => emit(Unauthenticated());
 
-  void showSession(AuthCredentials credentials) {
-    //final user = daraRepo.getUser(credentials.userId);
-    final user = credentials.username;
+  void showSession(AuthCredentials credentials) async {
+    try {
+      UserProfile? user = await dataRepo.getUserById(credentials.userId);
 
-    emit(Authenticated(user: user));
+      if (user == null) {
+        user = await dataRepo.createProfile(
+            userName: credentials.username,
+            userId: credentials.userId,
+            email: credentials.email);
+      }
+      emit(Authenticated(user: user));
+    } catch (e) {}
   }
 
   void signOut() {

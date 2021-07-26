@@ -4,6 +4,7 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter_droidcon/app_navigator.dart';
 import 'package:flutter_droidcon/auth/auth_repository.dart';
+import 'package:flutter_droidcon/data_repository.dart';
 import 'package:flutter_droidcon/models/ModelProvider.dart';
 import 'package:flutter_droidcon/session/session_cubit.dart';
 import 'package:flutter/material.dart';
@@ -34,11 +35,16 @@ class _AppState extends State<FlutterDroidCon> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: _isAmplifyConfigured
-            ? RepositoryProvider(
-                create: (context) => AuthRepository(),
+            ? MultiRepositoryProvider(
+                providers: [
+                  RepositoryProvider(create: (context) => AuthRepository()),
+                  RepositoryProvider(create: (context) => DataRepository())
+                ],
                 child: BlocProvider(
-                  create: (context) =>
-                      SessionCubit(authRepo: context.read<AuthRepository>()),
+                  create: (context) => SessionCubit(
+                    authRepo: context.read<AuthRepository>(),
+                    dataRepo: context.read<DataRepository>(),
+                  ),
                   child: AppNavigator(),
                 ),
               )

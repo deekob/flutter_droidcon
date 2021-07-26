@@ -20,16 +20,18 @@ class ConfirmBloc extends Bloc<ConfirmEvent, ConfirmState> {
     } else if (event is ConfirmSubmitted) {
       //submitting form
       yield state.copyWith(formStatus: FormSubmitting());
+      final credentials = authCubit.credentials;
 
       try {
-        final userId = await repo.confirm(
-            username: authCubit.credentials!.username, code: state.code);
+        await repo.confirm(username: credentials.username, code: state.code);
         yield state.copyWith(formStatus: SubmissionSuccess());
 
-        final creds = authCubit.credentials;
-        creds!.userId = userId;
+        final userId = await repo.login(
+            username: credentials.username, password: credentials.pasword);
 
-        authCubit.launchSession(creds);
+        credentials.userId = userId;
+
+        authCubit.launchSession(credentials);
       } on Exception catch (e) {
         yield state.copyWith(formStatus: SubmissionFailed(e));
       } catch (e) {
