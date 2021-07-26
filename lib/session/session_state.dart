@@ -8,6 +8,7 @@ class Unauthenticated extends SessionState {}
 
 class Authenticated extends SessionState {
   final UserProfile? user;
+  UserProfile? selectedUser;
 
-  Authenticated({this.user});
+  Authenticated({required this.user});
 }
