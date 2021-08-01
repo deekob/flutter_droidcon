@@ -1,9 +1,13 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_droidcon/profile/profile_bloc.dart';
 import 'package:flutter_droidcon/profile/profile_event.dart';
 import 'package:flutter_droidcon/profile/profile_state.dart';
 import 'package:flutter_droidcon/session/session_cubit.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileView extends StatelessWidget {
   @override
@@ -14,11 +18,16 @@ class ProfileView extends StatelessWidget {
         user: sessionCubit.selectedUser ?? sessionCubit.currentUser,
         isCurrentUser: sessionCubit.isCurrentUserSelected,
       ),
-      child: Scaffold(
-        backgroundColor: Color(0xFFF2F2F7),
-        appBar: _appBar(),
-        body: _profilePage(),
-      ),
+      child: BlocListener<ProfileBloc, ProfileState>(
+          listener: (context, state) {
+            if (state.isImageSourceActionSheetVisible) {
+              _showImageSourceActionSheet(context);
+            }
+          },
+          child: Scaffold(
+            appBar: _appBar(),
+            body: _profilePage(),
+          )),
     );
   }
 
@@ -64,17 +73,25 @@ class ProfileView extends StatelessWidget {
 
   Widget _avatar() {
     return BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
-      return CircleAvatar(
-        radius: 50,
-        child: Icon(Icons.person),
-      );
+      if (state.avatarPath.isEmpty) {
+        return CircleAvatar(
+          radius: 50,
+          child: Icon(Icons.person),
+        );
+      } else {
+        return CircleAvatar(
+          radius: 50,
+          child: Icon(Icons.person),
+          backgroundImage: FileImage(File(state.avatarPath)),
+        );
+      }
     });
   }
 
   Widget _changeAvatarButton() {
     return BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
       return TextButton(
-        onPressed: () {},
+        onPressed: () => context.read<ProfileBloc>().add(ChangeAvatarRequest()),
         child: Text('Change Avatar'),
       );
     });
@@ -83,7 +100,7 @@ class ProfileView extends StatelessWidget {
   Widget _usernameTile() {
     return BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
       return ListTile(
-        tileColor: Colors.white,
+        tileColor: Colors.green,
         leading: Icon(Icons.person),
         title: Text(state.username),
       );
@@ -93,7 +110,7 @@ class ProfileView extends StatelessWidget {
   Widget _emailTile() {
     return BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
       return ListTile(
-        tileColor: Colors.white,
+        tileColor: Colors.green,
         leading: Icon(Icons.mail),
         title: Text(state.email!.trim()),
       );
@@ -103,7 +120,7 @@ class ProfileView extends StatelessWidget {
   Widget _descriptionTile() {
     return BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
       return ListTile(
-        tileColor: Colors.white,
+        tileColor: Colors.green,
         leading: Icon(Icons.edit),
         title: TextFormField(
           initialValue: state.userDescription,
@@ -134,5 +151,59 @@ class ProfileView extends StatelessWidget {
         child: Text('Save Changes'),
       );
     });
+  }
+
+  void _showImageSourceActionSheet(BuildContext context) {
+    Function(ImageSource) selectImageSource = (imageSource) {
+      context
+          .read<ProfileBloc>()
+          .add(OpenImagePicker(imageSource: imageSource));
+    };
+
+    if (Platform.isIOS) {
+      showCupertinoModalPopup(
+        context: context,
+        builder: (context) => CupertinoActionSheet(
+          actions: [
+            CupertinoActionSheetAction(
+              child: Text('Camera'),
+              onPressed: () {
+                Navigator.pop(context);
+                selectImageSource(ImageSource.camera);
+              },
+            ),
+            CupertinoActionSheetAction(
+              child: Text('Gallery'),
+              onPressed: () {
+                Navigator.pop(context);
+                selectImageSource(ImageSource.gallery);
+              },
+            )
+          ],
+        ),
+      );
+    } else {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => Wrap(children: [
+          ListTile(
+            leading: Icon(Icons.camera_alt),
+            title: Text('Camera'),
+            onTap: () {
+              Navigator.pop(context);
+              selectImageSource(ImageSource.camera);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.camera_alt),
+            title: Text('Gallery'),
+            onTap: () {
+              Navigator.pop(context);
+              selectImageSource(ImageSource.gallery);
+            },
+          ),
+        ]),
+      );
+    }
   }
 }

@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class SessionView extends StatelessWidget {
   final UserProfile? userProfile;
 
-  SessionView({Key? key, this.userProfile}) : super(key: key) {}
+  SessionView({Key? key, this.userProfile}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

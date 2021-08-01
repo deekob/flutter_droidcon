@@ -34,6 +34,17 @@ class _AppState extends State<FlutterDroidCon> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        theme: ThemeData(
+            brightness: Brightness.dark,
+            primaryColor: Colors.green,
+            accentColor: Colors.grey,
+            fontFamily: 'Georgia',
+            buttonColor: Colors.green,
+            textTheme: TextTheme(
+              headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+              headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+              bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+            )),
         home: _isAmplifyConfigured
             ? MultiRepositoryProvider(
                 providers: [
