@@ -30,7 +30,8 @@ dependencies:
   amplify_auth_cognito:
   amplify_datastore: 
   amplify_api:
-
+  amplify_storage_s3:
+  
   image_picker:
  
 

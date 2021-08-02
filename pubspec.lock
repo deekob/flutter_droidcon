@@ -71,6 +71,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
+  amplify_storage_s3:
+    dependency: "direct main"
+    description:
+      name: amplify_storage_s3
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   async:
     dependency: transitive
     description:

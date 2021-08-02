@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_droidcon/data_repository.dart';
 import 'package:flutter_droidcon/profile/profile_bloc.dart';
 import 'package:flutter_droidcon/profile/profile_event.dart';
 import 'package:flutter_droidcon/profile/profile_state.dart';
 import 'package:flutter_droidcon/session/session_cubit.dart';
+import 'package:flutter_droidcon/storage_repository.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileView extends StatelessWidget {
@@ -15,9 +17,10 @@ class ProfileView extends StatelessWidget {
     final sessionCubit = context.read<SessionCubit>();
     return BlocProvider(
       create: (context) => ProfileBloc(
-        user: sessionCubit.selectedUser ?? sessionCubit.currentUser,
-        isCurrentUser: sessionCubit.isCurrentUserSelected,
-      ),
+          user: sessionCubit.selectedUser ?? sessionCubit.currentUser,
+          isCurrentUser: sessionCubit.isCurrentUserSelected,
+          dataRepository: context.read<DataRepository>(),
+          storageRepository: context.read<StorageRepository>()),
       child: BlocListener<ProfileBloc, ProfileState>(
           listener: (context, state) {
             if (state.isImageSourceActionSheetVisible) {
@@ -82,7 +85,7 @@ class ProfileView extends StatelessWidget {
         return CircleAvatar(
           radius: 50,
           child: Icon(Icons.person),
-          backgroundImage: FileImage(File(state.avatarPath)),
+          backgroundImage: NetworkImage(state.avatarPath),
         );
       }
     });
@@ -175,8 +178,12 @@ class ProfileView extends StatelessWidget {
             CupertinoActionSheetAction(
               child: Text('Gallery'),
               onPressed: () {
-                Navigator.pop(context);
-                selectImageSource(ImageSource.gallery);
+                try {
+                  Navigator.pop(context);
+                  selectImageSource(ImageSource.gallery);
+                } catch (e) {
+                  throw e;
+                }
               },
             )
           ],

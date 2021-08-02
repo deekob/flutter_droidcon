@@ -11,9 +11,9 @@ class OpenImagePicker extends ProfileEvent {
 }
 
 class ProvideImagePath extends ProfileEvent {
-  final String avatarPath;
+  final String? imagePath;
 
-  ProvideImagePath({required this.avatarPath});
+  ProvideImagePath({required this.imagePath});
 }
 
 class ProfileDescriptionChanged extends ProfileEvent {

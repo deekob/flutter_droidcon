@@ -26,4 +26,13 @@ class DataRepository {
       throw e;
     }
   }
+
+  Future<UserProfile> updateProfile(UserProfile updated) async {
+    try {
+      await Amplify.DataStore.save(updated);
+      return updated;
+    } catch (e) {
+      throw e;
+    }
+  }
 }
