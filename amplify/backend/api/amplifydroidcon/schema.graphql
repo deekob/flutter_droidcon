@@ -1,3 +1,9 @@
+type ShoppingListItem @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  itemName: String!
+  isComplete: Boolean
+}
+
 type UserProfile @model @auth(rules: [{allow: public}]) {
   id: ID!
   userName: String!

@@ -16,21 +16,27 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'ShoppingListItem.dart';
 import 'UserProfile.dart';
 
+export 'ShoppingListItem.dart';
 export 'UserProfile.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "4fea252cbe376783e12125a69c3f89c9";
+  String version = "fce6c37b06076af756f79efa712b82f9";
   @override
-  List<ModelSchema> modelSchemas = [UserProfile.schema];
+  List<ModelSchema> modelSchemas = [ShoppingListItem.schema, UserProfile.schema];
   static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
   
   ModelType getModelTypeByModelName(String modelName) {
     switch(modelName) {
+    case "ShoppingListItem": {
+    return ShoppingListItem.classType;
+    }
+    break;
     case "UserProfile": {
     return UserProfile.classType;
     }
