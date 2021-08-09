@@ -113,7 +113,6 @@ Parameters:
     Type: String
   
             
-            
   useDefault:
     Type: String
   
@@ -129,7 +128,6 @@ Parameters:
   
   adminQueries:
     Type: String
-            
             
   
   thirdPartyAuth:

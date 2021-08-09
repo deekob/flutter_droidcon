@@ -31,7 +31,7 @@ dependencies:
   amplify_datastore: 
   amplify_api:
   amplify_storage_s3:
-  
+  amplify_analytics_pinpoint:
   image_picker:
  
 

@@ -3,6 +3,7 @@ import 'package:flutter_droidcon/auth/auth_navigator.dart';
 import 'package:flutter_droidcon/profile/profile_view.dart';
 import 'package:flutter_droidcon/session/session_cubit.dart';
 import 'package:flutter_droidcon/session/session_state.dart';
+import 'package:flutter_droidcon/shoppinglist/shoppinglistitem_view.dart';
 import 'package:flutter_droidcon/views/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +26,9 @@ class AppNavigator extends StatelessWidget {
               ),
             ),
           // show session flow
-          if (state is Authenticated) MaterialPage(child: ProfileView())
+          //     if (state is Authenticated) MaterialPage(child: ProfileView())
+          if (state is Authenticated)
+            MaterialPage(child: ShoppingListItemsView())
         ],
         onPopPage: (route, result) => route.didPop(result),
       );

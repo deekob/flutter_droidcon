@@ -1,3 +1,4 @@
+import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
@@ -11,6 +12,8 @@ import 'package:flutter_droidcon/models/ModelProvider.dart';
 import 'package:flutter_droidcon/session/session_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_droidcon/shoppinglist/shoppinglistitem_bloc.dart';
+import 'package:flutter_droidcon/shoppinglist/shoppinglistitem_view.dart';
 import 'package:flutter_droidcon/storage_repository.dart';
 import 'package:flutter_droidcon/views/loading_view.dart';
 
@@ -55,13 +58,19 @@ class _AppState extends State<FlutterDroidCon> {
                   RepositoryProvider(create: (context) => DataRepository()),
                   RepositoryProvider(create: (context) => StorageRepository())
                 ],
-                child: BlocProvider(
-                  create: (context) => SessionCubit(
-                    authRepo: context.read<AuthRepository>(),
-                    dataRepo: context.read<DataRepository>(),
-                  ),
-                  child: AppNavigator(),
-                ),
+                // child: BlocProvider(
+                //   create: ,
+                child: MultiBlocProvider(providers: [
+                  BlocProvider(
+                      create: (context) => SessionCubit(
+                            authRepo: context.read<AuthRepository>(),
+                            dataRepo: context.read<DataRepository>(),
+                          )),
+                  BlocProvider(
+                      create: (context) => ShoppingListItemCubit()
+                        ..getListItems()
+                        ..observeItems())
+                ], child: AppNavigator()),
               )
             : LoadingView());
   }
@@ -73,6 +82,7 @@ class _AppState extends State<FlutterDroidCon> {
         AmplifyDataStore(modelProvider: ModelProvider.instance),
         AmplifyAPI(),
         AmplifyStorageS3(),
+        AmplifyAnalyticsPinpoint(),
       ]);
 
       await Amplify.configure(amplifyconfig);

@@ -40,5 +40,11 @@
       "service": "S3",
       "providerPlugin": "awscloudformation"
     }
+  },
+  "analytics": {
+    "amplifydroidcon": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

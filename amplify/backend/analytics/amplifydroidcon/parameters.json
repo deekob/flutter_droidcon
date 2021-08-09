@@ -1,0 +1,21 @@
+{
+    "appName": "amplifydroidcon",
+    "roleName": "pinpointLambdaRole67bd465e",
+    "cloudformationPolicyName": "cloudformationPolicy67bd465e",
+    "cloudWatchPolicyName": "cloudWatchPolicy67bd465e",
+    "pinpointPolicyName": "pinpointPolicy67bd465e",
+    "authPolicyName": "pinpoint_amplify_67bd465e",
+    "unauthPolicyName": "pinpoint_amplify_67bd465e",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}
